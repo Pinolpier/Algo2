@@ -1,7 +1,7 @@
 package task1_stack;
 
 public class MyStack3<T> {
-    Object[] stack;
+    Object[] stack; //Arbeiten mit einem Object Array und nur beim poppen zum gewählten Typ T cadten
     int counter;
     private T value;
 
@@ -46,7 +46,7 @@ public class MyStack3<T> {
             stack = buffer;
         }
         if (counter == 0) {
-            @SuppressWarnings("unchecked") final T t = (T) stack[0];
+            @SuppressWarnings("unchecked") final T t = (T) stack[0]; //Cast zu T
             return t;
         } else {
             @SuppressWarnings("unchecked") final T t = (T) stack[--counter];

@@ -2,15 +2,16 @@ package task1_stack;
 
 public class arithExpression {
 
+    //Berechnet arithmetische Ausdrücke und nutzt hierfür einen Dijkstra Algorithmus mit MyStack3 Objekten
     public static double arithExpression(String in) {
         String exp = in.trim();
-        exp = exp.replaceAll("\\s+", "");
-        exp = exp.replaceAll("–", "-");
+        exp = exp.replaceAll("\\s+", ""); //Mit Regex Leerzeichen entfernen
+        exp = exp.replaceAll("–", "-"); //Minus auf dem AB ist nicht dasselbe, wie auf meiner Tastatur
         MyStack3<Character> op = new MyStack3<>();
         MyStack3<Double> num = new MyStack3<>();
-        for (int i = 0; i < exp.length(); i++) {
+        for (int i = 0; i < exp.length(); i++) { //Niemand braucht ein Semikolon zur String Ende Erkennung, die Länge reicht auch :P
             char next = exp.charAt(i);
-            switch (next) {
+            switch (next) { //switch case implementierung der Anleitung auf dem AB
                 case '(':
                     break;
                 case '0':
@@ -33,7 +34,7 @@ public class arithExpression {
                     break;
                 case ')':
                     char operator = op.pop().charValue();
-                    double num2 = num.pop().doubleValue();
+                    double num2 = num.pop().doubleValue(); //Num2 zuerst einlesen, da Stacks die Reihenfolge vertauschen und Reihenfolge bei Subtraktion und Division relevant ist
                     double num1 = num.pop().doubleValue();
                     switch (operator) {
                         case '+':
