@@ -1,8 +1,5 @@
 package task2_list;
 
-/**
- * @param <Item>
- */
 public class MyNodeList<Item> {
     private Item item;
     private Node2<Item> first;

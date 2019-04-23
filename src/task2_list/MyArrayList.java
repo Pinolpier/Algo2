@@ -47,6 +47,9 @@ public class MyArrayList<Item> {
         System.out.println("Ist leer: " + list.isEmpty());
     }
 
+    /**
+     * @return true only if all elements of the list are empty (meaning null)
+     */
     public boolean isEmpty() {
         boolean empty = true;
         for (Object obj : array) {
@@ -55,15 +58,25 @@ public class MyArrayList<Item> {
         return empty;
     }
 
+    /**
+     * @return the amount of elements in the list. Empty elements will not be counted!
+     */
     public int length() {
         return length;
     }
 
+    /**
+     * @param index index of the element to return – must be greater than 0 and smaller than MyNodeList.length() – no exception handling implemented
+     * @return the element at the given index
+     */
     public Item elementAt(int index) {
         @SuppressWarnings("unchecked") final Item item = (Item) array[index];
         return item;
     }
 
+    /**
+     * @param element inserts the element at the first position of the index
+     */
     public void prepend(Item element) {
         Object[] buffer;
         if (length + 1 > array.length) {
@@ -79,6 +92,9 @@ public class MyArrayList<Item> {
         length++;
     }
 
+    /**
+     * @param element inserts the element at the end of the list
+     */
     public void append(Item element) {
         Object[] buffer;
         if (length + 1 > array.length) {
@@ -94,6 +110,10 @@ public class MyArrayList<Item> {
         length++;
     }
 
+    /**
+     * @param index   index where to insert the element
+     * @param element element to be inserted at the given index
+     */
     public void insertAt(int index, Item element) {
         Object[] buffer;
         if (length + 1 > array.length) {
@@ -113,6 +133,11 @@ public class MyArrayList<Item> {
         length++;
     }
 
+    /**
+     * @param index removes the element at the given index from the list.
+     *              List doesn't keep any references to this element so
+     *              Garbage Collector is probably destroying it soon after calling this method.
+     */
     public void remove(int index) {
         Object[] buffer;
         if (array.length - 20 > length) {
