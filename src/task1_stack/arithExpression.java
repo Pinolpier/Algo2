@@ -9,10 +9,12 @@ public class arithExpression {
         exp = exp.replaceAll("–", "-"); //Minus auf dem AB ist nicht dasselbe, wie auf meiner Tastatur
         MyStack3<Character> op = new MyStack3<>();
         MyStack3<Double> num = new MyStack3<>();
+        boolean wasNum = false; //Hiermit und durch die if-Abfragen wird Funktionalität ergänzt, die nicht gefragt war: Mehrstellige Zahlen können verwendet werden
         for (int i = 0; i < exp.length(); i++) { //Niemand braucht ein Semikolon zur String Ende Erkennung, die Länge reicht auch :P
             char next = exp.charAt(i);
             switch (next) { //switch case implementierung der Anleitung auf dem AB
                 case '(':
+                    wasNum = false;
                     break;
                 case '0':
                 case '1':
@@ -24,15 +26,23 @@ public class arithExpression {
                 case '7':
                 case '8':
                 case '9':
-                    num.push(new Double(Integer.valueOf(next - '0')));
+                    if (wasNum) { //Um mehrstellige Zahlen nutzen zu können
+                        double buf = num.pop().doubleValue();
+                        num.push(new Double(buf * 10 + Integer.valueOf(next - '0')));
+                    } else {
+                        num.push(new Double(Integer.valueOf(next - '0'))); //der eigentliche Befehl, wenn nur 1 stellige Zahlen benötigt sind
+                    }
+                    wasNum = true;
                     break;
                 case '+':
                 case '-':
                 case '*':
                 case '/':
+                    wasNum = false;
                     op.push(Character.valueOf(next));
                     break;
                 case ')':
+                    wasNum = false;
                     char operator = op.pop().charValue();
                     double num2 = num.pop().doubleValue(); //Num2 zuerst einlesen, da Stacks die Reihenfolge vertauschen und Reihenfolge bei Subtraktion und Division relevant ist
                     double num1 = num.pop().doubleValue();
@@ -57,6 +67,6 @@ public class arithExpression {
     }
 
     public static void main(String[] args) {
-        System.out.println(arithExpression(" ( 3 – ( 2 * 3 ) )"));
+        System.out.println(arithExpression(" ( 100 – (( 20 * (3 +1))-5 ) )")); //Mehrstellige Zahlen funktionieren auch.
     }
 }
